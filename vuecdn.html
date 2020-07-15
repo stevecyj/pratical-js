@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      樣版字串<br />
+      {{text}}<br />
+      <input type="text" v-model="text" /><br />
+      <!-- {{ item.text }} -->
+      {{text}}<br />
+      <button type="button" v-on:click="updateItem">按我</button>
+      <ul>
+        <li v-for="(item,key) in list" :key="item.name" :data-id="key">
+          {{item.name}}-{{key}}
+        </li>
+      </ul>
+      <!-- v-bind, : 動態屬性 -->
+      <img :src="imgUrl" alt="" />
+    </div>
+    <!-- <button type="button" @:click="updateItem">按我</button> -->
+    <script>
+      var app = new Vue({
+        el: "#app",
+        // data: {
+        //   text: "我是木村",
+        //   item: {},
+        // },
+        data: {
+          text: "我是木村",
+          list: [
+            { name: "小明" },
+            { name: "小毛" },
+            { name: "小智" },
+            { name: "小強" },
+            { name: "靜香" },
+          ],
+          imgUrl:
+            "https://images.unsplash.com/photo-1594756202413-cd5a309ecfd1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2135&q=80",
+        },
+        methods: {
+          updateItem() {
+            // this.item.text = "我是漂亮阿姨";
+            // 強制加入雙向綁定
+            // this.$set(目標, 屬性, 值);
+            this.$set(this.item, "text", "我是漂亮阿姨");
+            console.log(this.item);
+          },
+        },
+        created() {
+          // this.updateItem();
+        },
+      });
+      // console.log(app);
+      // obj.getData();
+    </script>
+  </body>
+</html>

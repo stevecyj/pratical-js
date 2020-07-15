@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        data: [],
+        getData() {
+          let vm = this;
+          axios.get("https://randomuser.me/api/").then(function (res) {
+            // console.log(res.data.results);
+            vm.data = res.data.results;
+            console.log(vm.data);
+          });
+        },
+      };
+      obj.getData();
+    </script>
+  </body>
+</html>
