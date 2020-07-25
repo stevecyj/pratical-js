@@ -20,7 +20,7 @@
       </ul>
       <hr />
       更新資料 <input type="text" v-model="tempData.content" />
-      <button type="button">確認更新</button>
+      <button type="button" @click="editDone">確認更新</button>
     </div>
     <script>
       var app = new Vue({
@@ -47,6 +47,17 @@
             //使用淺拷貝
             this.tempData = Object.assign({}, item);
             console.log(this.tempData);
+          },
+          editDone() {
+            var i;
+            this.list.forEach((item, key) => {
+              if (item.id == this.tempData.id) {
+                i = key;
+              }
+            });
+            console.log(i, this.tempData);
+            this.$set(this.list, i, this.tempData);
+            this.tempData = {};
           },
           newItem() {
             var time = new Date().getTime(); //取 unix 時間
