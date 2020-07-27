@@ -20,16 +20,20 @@
       <card2></card2>
     </div>
 
-    <script type="module">
-      // global 元件
-      Vue.component('card', {
-        template: `<div class="card" style="width: 18rem;">
+    <script type="text/template" id="forCard">
+      <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
-        </div>`,
+        </div>
+    </script>
+
+    <script type="module">
+      // global 元件
+      Vue.component('card', {
+        template: '#forCard',
       });
 
       var app = new Vue({
