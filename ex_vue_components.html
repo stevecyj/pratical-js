@@ -23,7 +23,7 @@
     <script type="text/template" id="forCard">
       <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{ text }}</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
@@ -34,6 +34,11 @@
       // global 元件
       Vue.component('card', {
         template: '#forCard',
+        data() {
+          return {
+            text: '這裡有標題',
+          };
+        },
       });
 
       var app = new Vue({
