@@ -16,17 +16,17 @@
   <body>
     <div id="app" class="container mt-3">
       {{ text }}
-      <card></card>
+      <card :outer="img"></card>
       <div is="card"></div>
       <card2></card2>
     </div>
 
     <script type="text/template" id="forCard">
       <div class="card" style="width: 18rem;">
+          <img :src="outer" class="card-img-top"  alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{ text }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">{{ outer }}</h5>
           </div>
         </div>
     </script>
@@ -34,6 +34,7 @@
     <script type="module">
       // global 元件
       Vue.component('card', {
+        props: ['outer'],
         template: '#forCard',
         data() {
           return {
@@ -58,6 +59,8 @@
         },
         data: {
           text: '外層文字',
+          img:
+            'https://images.unsplash.com/photo-1595947006841-0984683d036e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
           array: [
             {
               id: 1,
