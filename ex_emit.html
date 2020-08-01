@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app" class="container mt-3">
+      {{ text }}
+      <!-- 前面是名稱，後面是值 -->
+      <!-- <button type="button" @click="getData">按我</button> -->
+      <card @pushsomething="getData"></card>
+      <!-- 前面的內層 emit, 後面外層 methods -->
+      <card2></card2>
+    </div>
+
+    <script type="text/x-template" id="forCard">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <input type="text" v-model="text">
+          <button type="button" @click="update">按我</button>
+        </div>
+      </div>
+    </script>
+
+    <script type="module">
+      Vue.prototype.$bus = new Vue();
+      // 全域
+      // 模板運用
+      Vue.component('card', {
+        props: ['ouTer'],
+        template: '#forCard',
+        // 內層所有的 data 都必須用 function return
+        data() {
+          // 直接死背
+          return {
+            text: '這裡有一句話',
+          };
+        },
+        methods: {
+          update() {
+            // emit 推，外 methods 接收
+            // HTML 前內，後外
+            // 內到外
+            // console.log('update')
+            // this.$emit('pushsomething', this.text);
+
+            this.$bus.$emit('接收資料', this.text);
+          },
+        },
+        created() {
+          this.text2 = this.outer;
+        },
+      });
+
+      Vue.component('card2', {
+        template: `<div>{{ anotherData }}</div>`,
+        data() {
+          return {
+            anotherData: '還未修改的狀態',
+          };
+        },
+        created() {
+          // 接收
+          this.$bus.$on('接收資料2345678', function (para) {
+            console.log('別的地方來的', para);
+          });
+          // 不好除錯
+          console.log(this);
+        },
+      });
+
+      // 載入外部區域元件
+      // import card2 from './card.js';
+
+      var app = new Vue({
+        el: '#app',
+        // 區域元件
+        methods: {
+          getData(para) {
+            console.log('內層來的事件', para);
+          },
+        },
+        data: {
+          text: '外層文字',
+          img:
+            'https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+          array: [
+            {
+              id: 1,
+              text: '這是一段話',
+            },
+            {
+              id: 2,
+              text: '這是二段話',
+            },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
