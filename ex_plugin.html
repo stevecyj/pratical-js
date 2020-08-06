@@ -10,12 +10,16 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <!-- vue-loading-overlay -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.css" />
+    <!-- vue-loading-overlay end -->
   </head>
 
   <body>
     <!-- App -->
     <div id="app">
-      Filter {{ number | money }} {{ date| unix}}
+      <loading :active.sync="isLoading"></loading>
     </div>
     <!-- App end-->
 
@@ -37,8 +41,22 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- 記得加  type="module"， import export 才能運作-->
-    <script src="filter.js" type="module"></script>
     <!-- bootstrap & axios & vue end-->
+    <!-- 記得加  type="module"， import export 才能運作-->
+    <script src="plugin.js"></script>
+    <script>
+      console.log(VueLoading);
+      Vue.component('loading', VueLoading);
+      new Vue({
+        el: '#app',
+        data: {
+          number: '123456',
+          date: 1596677873,
+        },
+        created() {
+          console.log(this);
+        },
+      });
+    </script>
   </body>
 </html>

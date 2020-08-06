@@ -7,9 +7,18 @@ Vue.filter('money', function (num) {
   return '$' + parts.join('.');
 });
 
+Vue.filter('unix', function (value) {
+  const time = new Date(value * 1000);
+  return `${time.getFullYear()}/${time.getMonth() + 1}/${time.getDate()}`;
+});
+
 new Vue({
   el: '#app',
   data: {
     number: '123456',
+    date: 1596677873,
+  },
+  created() {
+    console.log(this);
   },
 });
