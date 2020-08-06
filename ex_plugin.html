@@ -57,10 +57,14 @@
         },
         methods: {
           clickMe() {
-            this.isLoading = true;
-            setTimeout(() => {
-              this.isLoading = false;
-            }, 2000);
+            var vm = this;
+            vm.isLoading = true;
+            axios
+              .get('https://course-ec-api.hexschool.io/api/5bffb293-5936-4139-961e-e2006317c701/ec/products?page=1')
+              .then((res) => {
+                vm.isLoading = false;
+                console.log(res);
+              });
           },
         },
         created() {
