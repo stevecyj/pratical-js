@@ -20,6 +20,7 @@
     <!-- App -->
     <div id="app">
       <loading :active.sync="isLoading"></loading>
+      <button type="button" class="btn btn-primary" @click="clickMe">按我</button>
     </div>
     <!-- App end-->
 
@@ -52,6 +53,15 @@
         data: {
           number: '123456',
           date: 1596677873,
+          isLoading: false,
+        },
+        methods: {
+          clickMe() {
+            this.isLoading = true;
+            setTimeout(() => {
+              this.isLoading = false;
+            }, 2000);
+          },
         },
         created() {
           console.log(this);
