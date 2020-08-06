@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- vue-loading-overlay -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.2/dist/vue-loading.css" />
+    <!-- vue-loading-overlay end -->
+  </head>
+
+  <body>
+    <!-- App -->
+    <div id="app" class="container">
+      <!-- input -->
+      <!-- rules 規則 -->
+      <!-- v-slot 回饋的內容 -->
+      <!-- <validation-provider rules="email" v-slot="{ errors }">
+        <input type="email" name="email" v-model="email" />
+        錯誤訊息<span>{{ errors[0] }}</span>
+      </validation-provider> -->
+
+      <validation-provider rules="required|email" v-slot="{ errors, classes,passed }">
+        <input type="email" name="email" v-model="email" class="form-control" :class="classes" />
+        <span class="invalid-feedback">{{ errors[0] }}</span>
+      </validation-provider>
+      <!-- form -->
+      <!-- 原生 html -->
+      <form action="">
+        <input type="email" name="email" required />
+        <button type="button">一般按鈕</button>
+        <button>按我</button>
+      </form>
+    </div>
+    <!-- App end-->
+
+    <!-- bootstrap & axios & vue -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- bootstrap & axios & vue end-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.8/vee-validate.full.min.js"></script>
+    <script>
+      // input 驗證
+      Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+      VeeValidate.configure({
+        classes: {
+          valid: 'is-valid',
+          invalid: 'is-invalid',
+        },
+      });
+      // form
+      new Vue({
+        el: '#app',
+        data: {
+          number: '123456',
+          date: 1596677873,
+          isLoading: false,
+          email: '',
+        },
+        methods: {
+          clickMe() {},
+        },
+        created() {
+          // console.log(this);
+        },
+      });
+    </script>
+  </body>
+</html>
