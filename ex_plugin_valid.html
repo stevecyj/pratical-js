@@ -27,11 +27,23 @@
         錯誤訊息<span>{{ errors[0] }}</span>
       </validation-provider> -->
 
-      <validation-provider rules="required|email" v-slot="{ errors, classes,passed }">
-        <input type="email" name="email" v-model="email" class="form-control" :class="classes" />
+      <validation-provider rules="min:5" v-slot="{ errors, classes,passed }">
+        <input type="text" name="email" v-model="email" class="form-control" :class="classes" />
         <span class="invalid-feedback">{{ errors[0] }}</span>
+        <span v-if="passed">沒有問題</span>
       </validation-provider>
       <!-- form -->
+      <validation-observer v-slot="{ invalid }">
+        <form @submit.prevent="clickMe">
+          <validation-provider rules="email|required" v-slot="{ errors, classes,passed }">
+            <input type="email" name="信箱" v-model="email" class="form-control" :class="classes" />
+            <span class="invalid-feedback">{{ errors[0] }}</span>
+            <span v-if="passed">沒有問題</span>
+          </validation-provider>
+          <button type="submit" class="btn btn-primary" :disabled="invalid">按我</button>
+        </form>
+      </validation-observer>
+
       <!-- 原生 html -->
       <form action="">
         <input type="email" name="email" required />
@@ -61,15 +73,21 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- bootstrap & axios & vue end-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.8/vee-validate.full.min.js"></script>
-    <script>
+    <script type="module">
+      import zh_TW from './zh_TW.js';
+      console.log(zh_TW);
       // input 驗證
       Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+      // form 驗證
+      Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
       VeeValidate.configure({
         classes: {
           valid: 'is-valid',
           invalid: 'is-invalid',
         },
       });
+
+      VeeValidate.localize('tw', zh_TW);
       // form
       new Vue({
         el: '#app',
@@ -80,7 +98,9 @@
           email: '',
         },
         methods: {
-          clickMe() {},
+          clickMe() {
+            console.log('送出');
+          },
         },
         created() {
           // console.log(this);
